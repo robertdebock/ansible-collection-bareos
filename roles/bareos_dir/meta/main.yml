@@ -1,0 +1,41 @@
+---
+galaxy_info:
+  author: robertdebock
+  role_name: bareos_dir
+  description: Install and configure [BareOS](https://www.bareos.com/) Director.
+  license: Apache-2.0
+  company: none
+  min_ansible_version: "2.12"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+        - buster
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+        - "9"
+    - name: Fedora
+      versions:
+        - "36"
+        - "37"
+    - name: opensuse
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - jammy
+        - focal
+
+  galaxy_tags:
+    - bareos
+    - infrastructure
+    - linux
+    - storage
+    - system
+    - tools
+
+dependencies: []

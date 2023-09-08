@@ -1,0 +1,67 @@
+---
+# tasks file for bareos_webui
+
+- name: Include assert.yml
+  ansible.builtin.import_tasks: assert.yml
+  run_once: yes
+  delegate_to: localhost
+
+- name: Install requirements
+  ansible.builtin.package:
+    name: "{{ bareos_webui_requirements }}"
+
+- name: Install bareos-webui
+  ansible.builtin.package:
+    name: bareos-webui
+  notify:
+    - Restart httpd
+
+- name: Set "enabled" in directors.ini
+  ansible.builtin.ini_file:
+    path: /etc/bareos-webui/directors.ini
+    section: "{{ item.name }}"
+    option: enabled
+    value: "{{ item.enabled | ternary('Yes', 'No') }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ bareos_webui_directors }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Set "diraddress" in directors.ini
+  ansible.builtin.ini_file:
+    path: /etc/bareos-webui/directors.ini
+    section: "{{ item.name }}"
+    option: diraddress
+    value: "{{ item.diraddress }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ bareos_webui_directors }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - item.enabled
+
+- name: Set settings for configuration.ini
+  ansible.builtin.ini_file:
+    path: /etc/bareos-webui/configuration.ini
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ bareos_webui_configuration }}"
+  loop_control:
+    label: "{{ item.section }}:{{ item.option }}"
+
+- name: Set SELinux boolean httpd_can_network_connect
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"

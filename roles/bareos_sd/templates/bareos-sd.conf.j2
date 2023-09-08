@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+Storage {
+  Name = "{{ bareos_sd_hostname }}"
+  Messages = "{{ bareos_sd_message }}"
+  TLS Enable = {{ bareos_sd_tls_enable | ternary('Yes', 'No') }}
+  TLS Verify Peer = {{ bareos_sd_tls_verify_peer | ternary('Yes', 'No') }}
+}

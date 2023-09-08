@@ -1,0 +1,21 @@
+---
+namespace: robertdebock
+name: roles
+version: 1.0.0
+readme: README.md
+authors:
+  - Robert de Bock <robert@meinit.nl>
+description: A collection of roles for Bareos
+license_file: 'LICENSE'
+tags:
+  - robertdebock
+  - linux
+  - bareos
+  - backup
+dependencies:
+  ansible.posix: "*"
+repository: https://github.com/robertdebock/ansible-collection-bareos
+documentation: https://robertdebock.nl/
+homepage: https://robertdebock.nl/
+issues: http://github.com/robertdebock/ansible-collection-bareos/issues
+build_ignore: []
