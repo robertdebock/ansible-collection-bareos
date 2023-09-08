@@ -1,6 +1,6 @@
 ---
 namespace: robertdebock
-name: roles
+name: bareos
 version: 1.0.0
 readme: README.md
 authors:
