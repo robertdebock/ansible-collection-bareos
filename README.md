@@ -1,13 +1,13 @@
-# Ansible Collection - robertdebock.roles
+# Ansible Collection - robertdebock.bareos
 
-A collection of roles found on [robertdebock.nl](https://robertdebock.nl/).
+A collection of roles to install and configure [Bareos](https://www.bareos.com).
 
 ## Using roles in this collection.
 
 1. Install the collection:
 
 ```shell
-ansible-galaxy collection install robertdebock.roles
+ansible-galaxy collection install robertdebock.bareos
 ```
 
 You can also list a collection in `requirements.yml`:
@@ -15,7 +15,7 @@ You can also list a collection in `requirements.yml`:
 ```yaml
 ---
 collections:
-  - name: robertdebock.roles
+  - name: robertdebock.bareos
 ```
 
 2. Include roles in your playbooks:
@@ -25,7 +25,7 @@ collections:
 - name: make a great machine
   hosts: all
   tasks:
-    - name: bootstrap
+    - name: Install Bareos repository
       import_role:
-        name: robertdebock.roles.bootstrap
+        name: robertdebock.bareos.repository
 ```
