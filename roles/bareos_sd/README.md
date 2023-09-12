@@ -59,6 +59,17 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
             - "!saved"
         - name: "disabled-message"
           enabled: no
+      bareos_sd_s3_profiles:
+        - name: exoscale
+          host: sos.exo.io
+          use_https: yes
+          ssl_method: "SSLv3"
+          access_key: "SomeAPIKey"
+          secret_key: "SomeSecret"
+          pricing_dir: ""
+          backend: "s3"
+          aws_auth_sign_version: 4
+          aws_region: "ch-gva-2"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-bareos_sd/blob/master/molecule/default/prepare.yml):
@@ -96,6 +107,9 @@ bareos_sd_hostname: "{{ inventory_hostname }}"
 # The messages configuration to use.
 bareos_sd_message: "Standard"
 
+# The amount of jobs to run concurrently.
+bareos_sd_max_concurrent_jobs: 20
+
 # Enable TLS.
 bareos_sd_tls_enable: yes
 
@@ -110,6 +124,9 @@ bareos_sd_directors: []
 
 # A list of messages to send to the director.
 bareos_sd_messages: []
+
+# A list of S3 profiles to configure.
+bareos_sd_s3_profiles: []
 ```
 
 ## [Requirements](#requirements)

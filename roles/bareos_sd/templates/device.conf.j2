@@ -6,7 +6,9 @@ Device {
 {% if item.description is defined %}
   Description = "{{ item.description }}"
 {% endif %}
+{% if item.maximum_concurrent_jobs is defined %}
   Maximum Concurrent Jobs = {{ item.maximum_concurrent_jobs }}
+{% endif %}
   Media Type = "{{ item.media_type }}"
   Archive Device = "{{ item.archive_device }}"
 {% if item.device_type is defined %}

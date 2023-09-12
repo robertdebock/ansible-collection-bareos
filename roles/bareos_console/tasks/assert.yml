@@ -13,16 +13,16 @@
     that:
       - item.name is defined
       - item.name is string
-      - item.name is not none
+      - item.name != ""
       - item.address is defined
       - item.address is string
-      - item.address is not none
+      - item.address != ""
       - item.password is defined
       - item.password is string
-      - item.password is not none
+      - item.password != ""
       - item.description is defined
       - item.description is string
-      - item.description is not none
+      - item.description != ""
     quiet: yes
   loop: "{{ bareos_console_directors }}"
   loop_control:

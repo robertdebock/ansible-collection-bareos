@@ -8,7 +8,7 @@
 
 - name: Install packages
   ansible.builtin.package:
-    name: "{{ bareos_fd_packages }}"
+    name: bareos-filedaemon
 
 - name: Place myself.conf
   ansible.builtin.template:
@@ -36,8 +36,6 @@
   notify:
     - Check configuration
     - Restart bareos-filedaemon
-  when:
-    - bareos_fd_directors is defined
 
 - name: Place message
   ansible.builtin.template:
@@ -53,11 +51,14 @@
   notify:
     - Check configuration
     - Restart bareos-filedaemon
+
+- name: Import encryption tasklist
+  ansible.builtin.import_tasks: encryption.yml
   when:
-    - bareos_fd_messages is defined
+    - bareos_fd_encryption_enabled
 
 - name: Start bareos-filedaemon
   ansible.builtin.service:
-    name: bareos-filedaemon
+    name: "{{ bareos_fd_service }}"
     state: started
     enabled: yes

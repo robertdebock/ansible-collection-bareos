@@ -19,6 +19,10 @@ argument_specs:
         type: "str"
         default: "Standard"
         description: "The messages configuration to use."
+      bareos_sd_max_concurrent_jobs:
+        type: "int"
+        default: 20
+        description: "The amount of jobs to run concurrently."
       bareos_sd_tls_enable:
         type: "bool"
         default: yes

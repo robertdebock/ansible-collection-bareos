@@ -36,8 +36,6 @@
   notify:
     - Check configuration
     - Restart bareos-sd
-  when:
-    - bareos_sd_devices is defined
 
 - name: Place director
   ansible.builtin.template:
@@ -53,8 +51,6 @@
   notify:
     - Check configuration
     - Restart bareos-sd
-  when:
-    - bareos_sd_directors is defined
 
 - name: Place message
   ansible.builtin.template:
@@ -100,8 +96,6 @@
   notify:
     - Check configuration
     - Restart bareos-sd
-  when:
-    - bareos_sd_s3_profiles is defined
 
 - name: Start bareos-sd
   ansible.builtin.service:

@@ -23,6 +23,13 @@
       - bareos_sd_message is not none
     quiet: yes
 
+- name: assert | Test if bareos_sd_max_concurrent_jobs is set correctly
+  ansible.builtin.assert:
+    that:
+      - bareos_sd_max_concurrent_jobs is defined
+      - bareos_sd_max_concurrent_jobs is number
+    quiet: yes
+
 - name: assert | Test if bareos_sd_tls_enable is set correctly
   ansible.builtin.assert:
     that:

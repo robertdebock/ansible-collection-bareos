@@ -38,6 +38,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
         - name: bareos-fd
           address: 127.0.0.1
           password: "MySecretPassword"
+          maximum_concurrent_jobs: 3
         - name: "disabled-client"
           enabled: no
       bareos_dir_filesets:
@@ -46,6 +47,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           include:
             files:
               - /
+            exclude_dirs_containing: nobackup
             options:
               signature: MD5
               one_fs: no
@@ -59,6 +61,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
                 - vfat
                 - xfs
                 - zfs
+              compression: GZIP
           exclude:
             files:
               - /var/lib/bareos
@@ -108,6 +111,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           runafterjob: "/usr/lib/bareos/scripts/delete_catalog_backup MyCatalog"
           write_bootstrap: '|/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \" -s \"Bootstrap for Job %j\" root'
           priority: 11
+          maximum_concurrent_jobs: 2
       bareos_dir_messages:
         - name: "Standard"
           description: "Send relevant messages to the Director."
@@ -226,6 +230,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           media_type: File
           tls_enable: yes
           tls_verify_peer: no
+          maximum_concurrent_jobs: 3
         - name: "disabled-storage"
           enabled: no
 ```
@@ -280,7 +285,7 @@ bareos_dir_password: "secretpassword"
 bareos_dir_queryfile: "/usr/lib/bareos/scripts/query.sql"
 
 # The maximum number of concurrent jobs.
-bareos_dir_max_concurrent_jobs: 10
+bareos_dir_max_concurrent_jobs: 1
 
 # The messages configuration to use.
 bareos_dir_message: Daemon

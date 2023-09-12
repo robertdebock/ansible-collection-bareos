@@ -12,6 +12,9 @@ bareos_sd_hostname: "{{ inventory_hostname }}"
 # The messages configuration to use.
 bareos_sd_message: "Standard"
 
+# The amount of jobs to run concurrently.
+bareos_sd_max_concurrent_jobs: 20
+
 # Enable TLS.
 bareos_sd_tls_enable: yes
 
