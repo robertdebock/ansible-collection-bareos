@@ -10,6 +10,12 @@
   ansible.builtin.package:
     name: "{{ bareos_sd_packages }}"
 
+- name: Install debug packages
+  ansible.builtin.package:
+    name: "{{ bareos_sd_debug_packages }}"
+  when:
+    - bareos_sd_install_debug_packages
+
 - name: Place bareos-sd.conf
   ansible.builtin.template:
     src: bareos-sd.conf.j2

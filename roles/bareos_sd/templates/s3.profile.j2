@@ -1,8 +1,7 @@
 {{ ansible_managed | comment }}
 
-host                  = {{ item.host }}
+host                  = "{{ item.host }}"
 use_https             = {{ item.use_https | ternary("true", "false") }}
-ssl_method            = {{ item.ssl_method }}
 access_key            = {{ item.access_key }}
 secret_key            = {{ item.secret_key }}
 pricing_dir           = "{{ item.pricing_dir }}"

@@ -20,6 +20,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   roles:
     - role: robertdebock.roles.bareos_dir
       bareos_dir_backup_configurations: yes
+      bareos_dir_install_debug_packages: yes
       bareos_dir_catalogs:
         - name: MyCatalog
           dbname: bareos
@@ -258,6 +259,7 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
     # - role: robertdebock.roles.core_dependencies
     # - role: robertdebock.roles.postfix
     - role: robertdebock.roles.bareos_repository
+      bareos_repository_enable_tracebacks: yes
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -275,6 +277,9 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # Backup the configuration files.
 bareos_dir_backup_configurations: no
 
+# Install debug packages. This requires the debug repositories to be enabled.
+bareos_dir_install_debug_packages: no
+
 # The hostname of the Director.
 bareos_dir_hostname: "{{ inventory_hostname }}"
 
@@ -285,7 +290,7 @@ bareos_dir_password: "secretpassword"
 bareos_dir_queryfile: "/usr/lib/bareos/scripts/query.sql"
 
 # The maximum number of concurrent jobs.
-bareos_dir_max_concurrent_jobs: 1
+bareos_dir_max_concurrent_jobs: 100
 
 # The messages configuration to use.
 bareos_dir_message: Daemon

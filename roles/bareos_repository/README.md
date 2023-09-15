@@ -19,6 +19,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
   roles:
     - role: robertdebock.roles.bareos_repository
+      bareos_repository_enable_tracebacks: yes
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-bareos_repository/blob/master/molecule/default/prepare.yml):
@@ -45,10 +46,24 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # defaults file for bareos_repository
 
 # What type of Bareos to install, either "community" or "subscription".
-bareos_type: community
+bareos_repository_type: community
+
+# The subscription username for the repository.
+bareos_repository_username: ""
+
+# The subscription password for the repository.
+bareos_repository_password: ""
 
 # What release to use, either "current", "next" or "release".
-bareos_release: current
+# When using `bareos_repository_type: community` this can be set to "release" or "testing".
+bareos_repository_release: current
+
+# The version of Bareos to install.
+# Only affects `bareos_repository_type: subscription`.
+bareos_repository_version: 22
+
+# You can enable tracebacks for troubleshooting purposes.
+bareos_repository_enable_tracebacks: no
 ```
 
 ## [Requirements](#requirements)

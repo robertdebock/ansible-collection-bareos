@@ -6,6 +6,9 @@
 # Backup existing configurations.
 bareos_fd_backup_configurations: no
 
+# Install debug packages. This requires the debug repositories to be enabled.
+bareos_fd_install_debug_packages: no
+
 # The hostname of the File Daemon.
 bareos_fd_hostname: "{{ inventory_hostname }}"
 
@@ -51,6 +54,9 @@ bareos_fd_messages:
 
 # For encryption of data, set this to `yes`.
 bareos_fd_encryption_enabled: no
+
+# You may bring your own private key. If not specified, a new one will be generated.
+bareos_fd_encryption_private_key: ""
 
 # The master public key to use.
 bareos_fd_encryption_master_public_key: ""

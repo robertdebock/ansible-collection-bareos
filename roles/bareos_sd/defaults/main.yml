@@ -6,6 +6,9 @@
 # Backup the configuration files.
 bareos_sd_backup_configurations: no
 
+# Install debug packages. This requires the debug repositories to be enabled.
+bareos_sd_install_debug_packages: no
+
 # The hostname of the Storage Daemon.
 bareos_sd_hostname: "{{ inventory_hostname }}"
 
