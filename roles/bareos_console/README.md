@@ -1,6 +1,6 @@
 # [bareos_console](#bareos_console)
 
-Install and configure [BareOS](https://www.bareos.com/) Console (bconsole) on your system.
+Install and configure [Bareos](https://www.bareos.com/) Console (bconsole) on your system.
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|

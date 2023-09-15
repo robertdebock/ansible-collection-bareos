@@ -2,7 +2,7 @@
 galaxy_info:
   author: robertdebock
   role_name: bareos_sd
-  description: Install and configure [BareOS](https://www.bareos.com/) Storage Daemon.
+  description: Install and configure [Bareos](https://www.bareos.com/) Storage Daemon.
   license: Apache-2.0
   company: none
   min_ansible_version: "2.12"
