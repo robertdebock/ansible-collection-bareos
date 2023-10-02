@@ -4,7 +4,7 @@ Install and configure [Bareos](https://www.bareos.com/) Console (bconsole) on yo
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/robertdebock/ansible-role-bareos_console/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bareos_console/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-bareos_console/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bareos_console)|[![quality](https://img.shields.io/ansible/quality/63108)](https://galaxy.ansible.com/robertdebock/bareos_console)|[![downloads](https://img.shields.io/ansible/role/d/63108)](https://galaxy.ansible.com/robertdebock/bareos_console)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-bareos_console.svg)](https://github.com/robertdebock/ansible-role-bareos_console/releases/)|
+|[![github](https://github.com/robertdebock/ansible-role-bareos_console/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bareos_console/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-bareos_console/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bareos_console)|[![quality](https://img.shields.io/ansible/quality/32434)](https://galaxy.ansible.com/robertdebock/bareos_console)|[![downloads](https://img.shields.io/ansible/role/d/32434)](https://galaxy.ansible.com/robertdebock/bareos_console)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-bareos_console.svg)](https://github.com/robertdebock/ansible-role-bareos_console/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -83,7 +83,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |---------|----|
 |[Debian](https://hub.docker.com/repository/docker/robertdebock/debian/general)|bookworm, bullseye, buster|
 |[EL](https://hub.docker.com/repository/docker/robertdebock/enterpriselinux/general)|7, 8, 9|
-|[Fedora](https://hub.docker.com/repository/docker/robertdebock/fedora/general)|36, 37|
+|[Fedora](https://hub.docker.com/repository/docker/robertdebock/fedora/general)|37, 38|
 |[opensuse](https://hub.docker.com/repository/docker/robertdebock/opensuse/general)|all|
 |[Ubuntu](https://hub.docker.com/repository/docker/robertdebock/ubuntu/general)|jammy, focal|
 
