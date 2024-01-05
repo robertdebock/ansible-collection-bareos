@@ -1,10 +1,10 @@
-# Ansible role [bareos_dir](#bareos_dir)
+# [Ansible role bareos_dir](#bareos_dir)
 
 Install and configure [Bareos](https://www.bareos.com/) Director.
 
 |GitHub|GitLab|Downloads|Version|
 |------|------|---------|-------|
-|[![github](https://github.com/robertdebock/ansible-role-bareos_dir/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bareos_dir/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-bareos_dir/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bareos_dir)|[![downloads](https://img.shields.io/ansible/role/d/32423)](https://galaxy.ansible.com/robertdebock/bareos_dir)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-bareos_dir.svg)](https://github.com/robertdebock/ansible-role-bareos_dir/releases/)|
+|[![github](https://github.com/robertdebock/ansible-role-bareos_dir/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bareos_dir/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-bareos_dir/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bareos_dir)|[![downloads](https://img.shields.io/ansible/role/d/robertdebock/bareos_dir)](https://galaxy.ansible.com/robertdebock/bareos_dir)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-bareos_dir.svg)](https://github.com/robertdebock/ansible-role-bareos_dir/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -40,6 +40,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           address: 127.0.0.1
           password: "MySecretPassword"
           maximum_concurrent_jobs: 3
+          heartbeat_interval: 60
         - name: "disabled-client"
           enabled: no
       bareos_dir_filesets:
@@ -367,7 +368,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |---------|----|
 |[Debian](https://hub.docker.com/r/robertdebock/debian)|bookworm, bullseye, buster|
 |[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|7, 8, 9|
-|[Fedora](https://hub.docker.com/r/robertdebock/fedora/)|37, 38|
+|[Fedora](https://hub.docker.com/r/robertdebock/fedora/)|38, 39|
 |[opensuse](https://hub.docker.com/r/robertdebock/opensuse)|all|
 |[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|jammy, focal|
 
