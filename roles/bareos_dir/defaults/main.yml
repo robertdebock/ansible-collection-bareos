@@ -4,10 +4,10 @@
 # The director has these configuration parameters.
 
 # Backup the configuration files.
-bareos_dir_backup_configurations: no
+bareos_dir_backup_configurations: false
 
 # Install debug packages. This requires the debug repositories to be enabled.
-bareos_dir_install_debug_packages: no
+bareos_dir_install_debug_packages: false
 
 # The hostname of the Director.
 bareos_dir_hostname: "{{ inventory_hostname }}"
@@ -25,16 +25,19 @@ bareos_dir_max_concurrent_jobs: 100
 bareos_dir_message: Daemon
 
 # Enable TLS.
-bareos_dir_tls_enable: yes
+bareos_dir_tls_enable: true
 
 # Verify the peer.
-bareos_dir_tls_verify_peer: no
+bareos_dir_tls_verify_peer: false
 
 # A list of catalogs to configure.
 bareos_dir_catalogs: []
 
-# A list of consoled to configure.
+# A list of consoles to configure.
 bareos_dir_consoles: []
+
+# A list of counters to configure.
+bareos_dir_counters: []
 
 # A list of clients to configure.
 bareos_dir_clients: []

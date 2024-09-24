@@ -14,13 +14,13 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ---
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
 
   roles:
     - role: robertdebock.roles.bareos_dir
-      bareos_dir_backup_configurations: yes
-      bareos_dir_install_debug_packages: yes
+      bareos_dir_backup_configurations: true
+      bareos_dir_install_debug_packages: true
       bareos_dir_catalogs:
         - name: MyCatalog
           dbname: bareos
@@ -42,7 +42,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           maximum_concurrent_jobs: 3
           heartbeat_interval: 60
         - name: "disabled-client"
-          enabled: no
+          enabled: false
       bareos_dir_filesets:
         - name: LinuxAll
           description: "Backup all regular filesystems, determined by filesystem type."
@@ -52,7 +52,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
             exclude_dirs_containing: nobackup
             options:
               signature: MD5
-              one_fs: no
+              one_fs: false
               fs_types:
                 - btrfs
                 - ext2
@@ -74,7 +74,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
               - /.journal
               - /.fsck
         - name: disabled-fileset
-          enabled: no
+          enabled: false
       bareos_dir_jobdefs:
         - name: DefaultJob-1
           type: Backup
@@ -90,7 +90,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           differential_backup_pool: Differential
           incremental_backup_pool: Incremental
         - name: "disabled-jobdef"
-          enabled: no
+          enabled: false
       bareos_dir_jobs:
         - name: my_job
           description: "My backup job"
@@ -101,7 +101,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           storage: File-1
           messages: Standard
         - name: disabled_job
-          enabled: no
+          enabled: false
         - name: BackupCatalog
           description: "Backup the catalog database (after the nightly save)"
           jobdefs: DefaultJob
@@ -133,7 +133,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
             - "!skipped"
             - "!saved"
         - name: "disabled-message"
-          enabled: no
+          enabled: false
         - name: Daemon
           description: "Message delivery for daemon messages (no job)."
           mailcommand: '/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \<%r\>\" -s \"Bareos daemon message\" %r'
@@ -169,14 +169,14 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
       bareos_dir_pools:
         - name: Full
           pool_type: Backup
-          recycle: yes
-          autoprune: yes
+          recycle: true
+          autoprune: true
           volume_retention: 365 days
           maximum_volume_bytes: 50G
           maximum_volumes: 100
           label_format: "Full-"
         - name: "disabled-pool"
-          enabled: no
+          enabled: false
       bareos_dir_profiles:
         - name: webui-admin
           jobacl:
@@ -211,7 +211,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           pluginoptionsacl:
             - "*all*"
         - name: "disabled-message"
-          enabled: no
+          enabled: false
       bareos_dir_schedules:
         - name: WeeklyCycle
           run:
@@ -223,18 +223,18 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
           run:
             - Full mon-fri at 21:10
         - name: "disabled-schedule"
-          enabled: no
+          enabled: false
       bareos_dir_storages:
         - name: File-1
           address: dir-1
           password: "MySecretPassword"
           device: FileStorage
           media_type: File
-          tls_enable: yes
-          tls_verify_peer: no
+          tls_enable: true
+          tls_verify_peer: false
           maximum_concurrent_jobs: 3
         - name: "disabled-storage"
-          enabled: no
+          enabled: false
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-bareos_dir/blob/master/molecule/default/prepare.yml):
@@ -243,24 +243,24 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 ---
 - name: Prepare
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   roles:
     - role: robertdebock.roles.bootstrap
     # The roles buildtools, python_pip and postgres are required.
     # bareos-dir needs to connect to a database.
     - role: robertdebock.roles.buildtools
-    # EPEL is required for RHEL7.
-    - role: robertdebock.roles.epel
-    - role: robertdebock.roles.python_pip
     - role: robertdebock.roles.postgres
     # The roles core_dependencies and postfix are  required for the `bareos_role`: "dir".
     # bareos-dir needs to send emails.
-    # - role: robertdebock.roles.core_dependencies
-    # - role: robertdebock.roles.postfix
+    - role: robertdebock.roles.core_dependencies
+    - role: robertdebock.roles.postfix
+      postfix_myhostname: "smtp.example.com"
+      postfix_mydomain: "example.com"
+      postfix_myorigin: "example.com"
     - role: robertdebock.roles.bareos_repository
-      bareos_repository_enable_tracebacks: yes
+      bareos_repository_enable_tracebacks: true
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -276,10 +276,10 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # The director has these configuration parameters.
 
 # Backup the configuration files.
-bareos_dir_backup_configurations: no
+bareos_dir_backup_configurations: false
 
 # Install debug packages. This requires the debug repositories to be enabled.
-bareos_dir_install_debug_packages: no
+bareos_dir_install_debug_packages: false
 
 # The hostname of the Director.
 bareos_dir_hostname: "{{ inventory_hostname }}"
@@ -297,16 +297,19 @@ bareos_dir_max_concurrent_jobs: 100
 bareos_dir_message: Daemon
 
 # Enable TLS.
-bareos_dir_tls_enable: yes
+bareos_dir_tls_enable: true
 
 # Verify the peer.
-bareos_dir_tls_verify_peer: no
+bareos_dir_tls_verify_peer: false
 
 # A list of catalogs to configure.
 bareos_dir_catalogs: []
 
-# A list of consoled to configure.
+# A list of consoles to configure.
 bareos_dir_consoles: []
+
+# A list of counters to configure.
+bareos_dir_counters: []
 
 # A list of clients to configure.
 bareos_dir_clients: []
@@ -349,9 +352,10 @@ The following roles are used to prepare a system. You can prepare your system in
 |[robertdebock.bootstrap](https://galaxy.ansible.com/robertdebock/bootstrap)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bootstrap/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-bootstrap/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bootstrap)|
 |[robertdebock.bareos_repository](https://galaxy.ansible.com/robertdebock/bareos_repository)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-bareos_repository/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-bareos_repository/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-bareos_repository/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-bareos_repository)|
 |[robertdebock.buildtools](https://galaxy.ansible.com/robertdebock/buildtools)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-buildtools/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-buildtools/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-buildtools/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-buildtools)|
-|[robertdebock.epel](https://galaxy.ansible.com/robertdebock/epel)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-epel/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-epel/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-epel/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-epel)|
 |[robertdebock.python_pip](https://galaxy.ansible.com/robertdebock/python_pip)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-python_pip/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-python_pip/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-python_pip/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-python_pip)|
 |[robertdebock.postgres](https://galaxy.ansible.com/robertdebock/postgres)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-postgres/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-postgres/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-postgres/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-postgres)|
+|[robertdebock.core_dependencies](https://galaxy.ansible.com/robertdebock/core_dependencies)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-core_dependencies/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-core_dependencies/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-core_dependencies/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-core_dependencies)|
+|[robertdebock.postfix](https://galaxy.ansible.com/robertdebock/postfix)|[![Build Status GitHub](https://github.com/robertdebock/ansible-role-postfix/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-postfix/actions)|[![Build Status GitLab](https://gitlab.com/robertdebock-iac/ansible-role-postfix/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-postfix)|
 
 ## [Context](#context)
 
@@ -366,11 +370,10 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 
 |container|tags|
 |---------|----|
-|[Debian](https://hub.docker.com/r/robertdebock/debian)|bookworm, bullseye, buster|
-|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|7, 8, 9|
-|[Fedora](https://hub.docker.com/r/robertdebock/fedora/)|38, 39|
-|[opensuse](https://hub.docker.com/r/robertdebock/opensuse)|all|
-|[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|jammy, focal|
+|[Debian](https://hub.docker.com/r/robertdebock/debian)|bookworm, bullseye|
+|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|9|
+|[Fedora](https://hub.docker.com/r/robertdebock/fedora)|38, 39|
+|[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|jammy|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
 
